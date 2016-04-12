@@ -21,7 +21,7 @@ The goal of this project is to build tools to analyze the data of PredictIt mark
 
 **Currently in early beta**
 - this project is still in development
-- CRITICAL ERROR: Until I fix this, for it to work, you must visit your URL (see step 2 below) and then visit the data directory (predictit-tools/data), open your freshly created file (something like CLINTON.NYPRMRY16.DEM.tsv) and add this to the first line of the file (tab-delimtted):	LastTradePrice	BestBuyYesCost	BestBuyNoCost	BestSellYesCost	BestSellNoCost ........and then save the file.
+
 
 **Getting started**
 1. Unzip the package on your local or remote server
