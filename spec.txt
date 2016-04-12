@@ -1,0 +1,44 @@
+opt. scrape to find all the markets
+opt2. add or remove markets to JSON object (var markets)
+1. query api to compile data over time
+    a. create an array objects called "markets"
+	b. loop through array, and query api for each object to get fresh data each 10 seconds 
+	c. copy data from api to update "markets" array
+2. 	update graph
+    a. create variables for ---variables to track---
+	b. create tabs or select list to switch between d3 line graph that displays mean, standard deviation, and price lines
+3. send an email to notify each standard deviation ($) above or below the mean bid
+    a. if the price is a standard deviation above or below the mean, send an email to notify.
+	
+on save
+	1. create loop through each market to get LongName and LastTradePrice
+	2. 
+
+ 
+---variables to track---
+
+--scraped variables--
+- fivethirtyeight chance ("price")
+- shares traded
+- today's volume
+
+--api variables--
+- ID, DateEnd, Image, URL, Name, LongName, ShortName, TickerSymbol, Status
+- LastTradePrice, BestBuyYesCost, BestBuyNoCost, BestSellYesCost, BestSellNoCost, LastClosePrice
+
+--calculated variables--
+- mean, median, mode, stddev, variance, percentile
+	- 24 hour
+	- 12 hour
+	- 6 hour
+	- 3 hour
+	- 1 hour
+	- 30 minute
+	- 10 minute
+	- 5 minute
+- whether up or down
+
+
+- PredicitIt Simulator 
+  - machine learning or neural networks?
+  - allow bets and track "winnings" and "losses"
