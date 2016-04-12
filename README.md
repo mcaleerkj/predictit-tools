@@ -1,4 +1,4 @@
-**PredictIt-Tools**
+#PredictIt-Tools#
 
 **About PredictIt**
 
@@ -24,7 +24,7 @@ The goal of this project is to build tools to analyze the data of PredictIt mark
 - CRITICAL ERROR: Until I fix this, for it to work, you must visit your URL (see step 2 below) and then visit the data directory (predictit-tools/data), open your freshly created file (something like CLINTON.NYPRMRY16.DEM.tsv) and add this to the first line of the file (tab-delimtted):	LastTradePrice	BestBuyYesCost	BestBuyNoCost	BestSellYesCost	BestSellNoCost ........and then save the file.
 
 **Getting started**
-1. Unzip the package on your local or remote server/n
+1. Unzip the package on your local or remote server
 2. visit /predictit-tools/index.php in your browser and add "?ticker=" + TICKERSYMBOL
    e.g. "http://localhost/predictit-tools/index.php?ticker=CLINTON.NYPRMRY16.DEM"
 3. A photo, question, and  should load, but it will take a few minutes before data begins to appear 
