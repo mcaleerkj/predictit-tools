@@ -1,6 +1,65 @@
 <script>
-var stateArray = [true, true, true, true,];
+//	(LastTradePrice, BestBuyYesCost, BestSellYesCost, BestSellNoCost, BestSellNoCost);
+var stateArray = [true, true, true, true, true];
 var the_minutes = 4181;
+var margin = {
+		top: 20,
+		right: 80,
+		bottom: 30,
+		left: 50
+	},
+	width = 715 - margin.left - margin.right,
+	height = 300 - margin.top - margin.bottom;
+
+//formatters
+var parseDate = d3.time.format("%Y-%m-%dT%H:%M:%S").parse;
+var dollar2 = d3.format('$.2f');
+var dollar3 = d3.format('$.3f');
+var varianceForm = d3.format(".6f");
+var stdDevForm = d3.format(".4f");
+
+var x = d3.time.scale()
+	.range([0, width]);
+
+var y = d3.scale.linear()
+	.range([height, 0]);
+
+var color = d3.scale.category10();
+
+var xAxis = d3.svg.axis()
+	.scale(x)
+	.orient("bottom");
+
+var yAxis = d3.svg.axis()
+	.scale(y)
+	.orient("left")
+	.tickFormat(dollar2);;
+
+var line = d3.svg.line()
+	.interpolate("basis")
+	.x(function(d) {
+		return x(d.date);
+	})
+	.y(function(d) {
+		return y(d.price);
+	});
+var lineCount = 0;
+
+var svg = d3.select("#chart-container").append("svg")
+	.attr("width", width + margin.left + margin.right)
+	.attr("height", height + margin.top + margin.bottom)
+	.append("g")
+	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var	LastTradePriceArray = [], 
+		BestBuyYesCostArray = [], 
+		BestBuyNoCostArray = [], 
+		BestSellYesCostArray = [], 
+		BestSellNoCostArray = []
+		LastClosePriceArray = [];
+	
+var the_tsv = "<?php echo htmlspecialchars($_GET["ticker"]) ?>";
+
 jQuery("#tb1").click(function(){
 	the_minutes=2;
 	jQuery(this).siblings().removeClass("active-time");	
@@ -104,13 +163,81 @@ jQuery("#tb17").click(function(){
 	jQuery(this).toggleClass("active-time");	
 });
 
+//dynamically remove or add lines
+jQuery(function() {
+	jQuery("#LastTradePrice").click(function(){
+		var sel = "#chart-container > svg > g > g:nth-child(3)";		
+		jQuery(sel).toggleClass("hide");
+		jQuery(this).toggleClass("deactivated");
+		console.log("LastTradePrice");
+		updateData(the_minutes, 
+			stateArray[0]==true ? stateArray[0]=false : stateArray[0]=true,
+			stateArray[1], 
+			stateArray[2], 
+			stateArray[3], 
+			stateArray[4]);
+	});
+	jQuery("#BestBuyYesCost").click(function(){
+		var sel = "#chart-container > svg > g > g:nth-child(4)";		
+		jQuery(sel).toggleClass("hide");
+		jQuery(this).toggleClass("deactivated");	
+		updateData(the_minutes, 
+			stateArray[0],
+			stateArray[1]==true ? stateArray[1]=false : stateArray[1]=true, 
+			stateArray[2], 
+			stateArray[3], 
+			stateArray[4]);
+	});
+	jQuery("#BestSellYesCost").click(function(){
+		var sel = "#chart-container > svg > g > g:nth-child(5)";		
+		jQuery(sel).toggleClass("hide");
+		jQuery(this).toggleClass("deactivated");	
+		updateData(the_minutes, 
+			stateArray[0],
+			stateArray[1], 
+			stateArray[2]==true ? stateArray[2]=false : stateArray[2]=true, 
+			stateArray[3], 
+			stateArray[4]);
+	});
+	jQuery("#BestBuyNoCost").click(function(){
+		var sel = "#chart-container > svg > g > g:nth-child(6)";		
+		jQuery(sel).toggleClass("hide");
+		jQuery(this).toggleClass("deactivated");
+		updateData(the_minutes, 
+			stateArray[0],
+			stateArray[1], 
+			stateArray[2], 
+			stateArray[3]==true ? stateArray[3]=false : stateArray[3]=true, 
+			stateArray[4]);
+	});
+	jQuery("#BestSellNoCost").click(function(){
+		var sel = "#chart-container > svg > g > g:nth-child(7)";		
+		jQuery(sel).toggleClass("hide");
+		jQuery(this).toggleClass("deactivated");
+		updateData(the_minutes, 
+			stateArray[0],
+			stateArray[1], 
+			stateArray[2], 
+			stateArray[3], 
+			stateArray[4]==true ? stateArray[4]=false : stateArray[4]=true);
+	});	
+});
+
 //updateData(numMinutes, lastTradePrice, bestBuyYesCost, bestSellYesCost, bestBuyNoCost, bestSellNoCost)
 updateData(2, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
+
 function updateData(numMinutes, lastTradePrice, bestBuyYesCost, bestSellYesCost, bestBuyNoCost, bestSellNoCost) {
 	//first make sure other charts are removed;
+	d3.selectAll("svg").remove();
 	jQuery("svg").remove();
+	LastTradePriceArray = [];
+	BestBuyYesCostArray = [];
+	BestBuyNoCostArray = [];
+	BestSellYesCostArray = []; 
+	BestSellNoCostArray = [];
+	LastClosePriceArray = [];	
 	
-	var margin = {
+	margin = {
 			top: 20,
 			right: 80,
 			bottom: 30,
@@ -120,30 +247,30 @@ function updateData(numMinutes, lastTradePrice, bestBuyYesCost, bestSellYesCost,
 		height = 300 - margin.top - margin.bottom;
 
 	//formatters
-	var parseDate = d3.time.format("%Y-%m-%dT%H:%M:%S").parse;
-	var dollar2 = d3.format('$.2f');
-	var dollar3 = d3.format('$.3f');
-	var varianceForm = d3.format(".6f");
-	var stdDevForm = d3.format(".4f");
+	parseDate = d3.time.format("%Y-%m-%dT%H:%M:%S").parse;
+	dollar2 = d3.format('$.2f');
+	dollar3 = d3.format('$.3f');
+	varianceForm = d3.format(".6f");
+	stdDevForm = d3.format(".4f");
 
-	var x = d3.time.scale()
+	x = d3.time.scale()
 		.range([0, width]);
 
-	var y = d3.scale.linear()
+	y = d3.scale.linear()
 		.range([height, 0]);
 
-	var color = d3.scale.category10();
+	color = d3.scale.category10();
 
-	var xAxis = d3.svg.axis()
+	xAxis = d3.svg.axis()
 		.scale(x)
 		.orient("bottom");
 
-	var yAxis = d3.svg.axis()
+	yAxis = d3.svg.axis()
 		.scale(y)
 		.orient("left")
 		.tickFormat(dollar2);;
 
-	var line = d3.svg.line()
+	line = d3.svg.line()
 		.interpolate("basis")
 		.x(function(d) {
 			return x(d.date);
@@ -151,22 +278,24 @@ function updateData(numMinutes, lastTradePrice, bestBuyYesCost, bestSellYesCost,
 		.y(function(d) {
 			return y(d.price);
 		});
-	var lineCount = 0;
+	lineCount = 0;
 
-	var svg = d3.select("#chart-container").append("svg")
+	svg = d3.select("#chart-container").append("svg")
 		.attr("width", width + margin.left + margin.right)
 		.attr("height", height + margin.top + margin.bottom)
 		.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-	var	LastTradePriceArray = [], 
+	LastTradePriceArray = [], 
 			BestBuyYesCostArray = [], 
 			BestBuyNoCostArray = [], 
 			BestSellYesCostArray = [], 
 			BestSellNoCostArray = []
 			LastClosePriceArray = [];
 		
-	var the_tsv = "<?php echo htmlspecialchars($_GET["ticker"]) ?>";
+	the_tsv = "<?php echo htmlspecialchars($_GET["ticker"]) ?>";
+	
+	//function to get d3 data
 	d3.tsv("data/" + the_tsv + ".tsv", function(error, data) {
     if (error) throw error;
 	
@@ -203,63 +332,6 @@ function updateData(numMinutes, lastTradePrice, bestBuyYesCost, bestSellYesCost,
 	//console.log("data (post-filter2): " + JSON.stringify(data));	
 	//buttons to display or hide line for each categor
 	
-	
-	//graph buttons
-	graph_buttons();
-	function graph_buttons() {
-	var iterator=3;
-	
-	jQuery("#LastTradePrice").click(function(){
-		var sel = "#chart-container > svg > g > g:nth-child(3)";		
-		jQuery(sel).toggleClass("hide");
-		jQuery(this).toggleClass("deactivated");
-		if (stateArray[0]==true)
-			stateArray[0]=false;
-		else
-			stateArray[0]=true;
-		updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);		
-	});
-	jQuery("#BestBuyYesCost").click(function(){
-		var sel = "#chart-container > svg > g > g:nth-child(4)";		
-		jQuery(sel).toggleClass("hide");
-		jQuery(this).toggleClass("deactivated");
-		if (stateArray[1]==true)
-			stateArray[1]=false;
-		else
-			stateArray[1]=true;		
-		updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
-	});
-	jQuery("#BestSellYesCost").click(function(){
-		var sel = "#chart-container > svg > g > g:nth-child(5)";		
-		jQuery(sel).toggleClass("hide");
-		jQuery(this).toggleClass("deactivated");
-		if (stateArray[2]==true)
-			stateArray[2]=false;
-		else
-			stateArray[2]=true;		
-		updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
-	});
-	jQuery("#BestBuyNoCost").click(function(){
-		var sel = "#chart-container > svg > g > g:nth-child(6)";		
-		jQuery(sel).toggleClass("hide");
-		jQuery(this).toggleClass("deactivated");
-		if (stateArray[3]==true)
-			stateArray[3]=false;
-		else
-			stateArray[3]=true;	
-		updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
-	});
-	jQuery("#BestSellNoCost").click(function(){
-		var sel = "#chart-container > svg > g > g:nth-child(7)";		
-		jQuery(sel).toggleClass("hide");
-		jQuery(this).toggleClass("deactivated");
-		if (stateArray[4]==true)
-			stateArray[4]=false;
-		else
-			stateArray[4]=true;	
-		updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
-	});	
-	
 	data.forEach(function(d) {
 		if (lastTradePrice)
 		LastTradePriceArray.push(d['LastTradePrice']);
@@ -271,8 +343,7 @@ function updateData(numMinutes, lastTradePrice, bestBuyYesCost, bestSellYesCost,
 		BestSellYesCostArray.push(d['BestSellYesCost']);
 		if (bestSellNoCost)
 		BestSellNoCostArray.push(d['BestSellNoCost']);	
-	});
-	}
+	});	
 	
 	updateTable();
 	function updateTable() {
