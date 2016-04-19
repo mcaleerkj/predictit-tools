@@ -43,23 +43,23 @@ include("get-api-data.php");
 	<div id="right-container">
 		<!--time menu-->
 		<div id="time-menu">
-			<div id="tb1" class="time-button active-time">2 minutes</div>
-			<div id="tb2" class="time-button">3 minutes</div>
+			<div id="tb2" class="time-button">2 minutes</div>
 			<div id="tb3" class="time-button">5 minutes</div>
-			<div id="tb4" class="time-button">8 minutes</div>
-			<div id="tb5" class="time-button">13 minutes</div>
-			<div id="tb6" class="time-button">21 minutes</div>
-			<div id="tb7" class="time-button">34 minutes</div>
-			<div id="tb8" class="time-button">55 minutes</div>
-			<div id="tb9" class="time-button">89 minutes</div>
-			<div id="tb10" class="time-button">144 minutes</div>
-			<div id="tb11" class="time-button">233 minutes</div>
-			<div id="tb12" class="time-button">377 minutes</div>
-			<div id="tb13" class="time-button">610 minutes</div>
-			<div id="tb14" class="time-button">987 minutes</div>
-			<div id="tb15" class="time-button">1597 minutes</div>
-			<div id="tb16" class="time-button">2584 minutes</div>
-			<div id="tb17" class="time-button">4181 minutes</div>
+			<div id="tb4" class="time-button">10 minutes</div>
+			<div id="tb5" class="time-button">20 minutes</div>
+			<div id="tb6" class="time-button">30 minutes</div>
+			<div id="tb7" class="time-button">40 minutes</div>
+			<div id="tb8" class="time-button">50 minutes</div>
+			<div id="tb9" class="time-button">1 hour</div>
+			<div id="tb10" class="time-button">3 hours</div>
+			<div id="tb11" class="time-button">6 hours</div>
+			<div id="tb1" class="time-button">9 hours</div>			
+			<div id="tb12" class="time-button">12 hours</div>
+			<div id="tb13" class="time-button">1 day</div>
+			<div id="tb14" class="time-button">3 days</div>
+			<div id="tb15" class="time-button">7 days</div>
+			<div id="tb16" class="time-button">30 days</div>
+			<div id="tb17" class="time-button">90 days</div>
 		</div>	
 		<!--d3 chart -->	
 		<div id="chart-container">		

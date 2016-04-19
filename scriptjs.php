@@ -67,97 +67,97 @@ jQuery("#tb1").click(function(){
 	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
 });
 jQuery("#tb2").click(function(){
-	the_minutes=3;
-	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
-	jQuery(this).siblings().removeClass("active-time");	
-	jQuery(this).toggleClass("active-time");	
-});
-jQuery("#tb3").click(function(){
 	the_minutes=5;
 	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
 	jQuery(this).siblings().removeClass("active-time");	
 	jQuery(this).toggleClass("active-time");	
 });
+jQuery("#tb3").click(function(){
+	the_minutes=10;
+	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
+	jQuery(this).siblings().removeClass("active-time");	
+	jQuery(this).toggleClass("active-time");	
+});
 jQuery("#tb4").click(function(){
-	the_minutes=8;
+	the_minutes=20;
 	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
 	jQuery(this).siblings().removeClass("active-time");	
 	jQuery(this).toggleClass("active-time");	
 });
 jQuery("#tb5").click(function(){
-	the_minutes=13;
+	the_minutes=30;
 	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
 	jQuery(this).siblings().removeClass("active-time");	
 	jQuery(this).toggleClass("active-time");	
 });
 jQuery("#tb6").click(function(){
-	the_minutes=21;
+	the_minutes=40;
 	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
 	jQuery(this).siblings().removeClass("active-time");	
 	jQuery(this).toggleClass("active-time");	
 });
 jQuery("#tb7").click(function(){
-	the_minutes=34;
+	the_minutes=50;
 	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
 	jQuery(this).siblings().removeClass("active-time");	
 	jQuery(this).toggleClass("active-time");	
 });
 jQuery("#tb8").click(function(){
-	the_minutes=55;
+	the_minutes=60;
 	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
 	jQuery(this).siblings().removeClass("active-time");	
 	jQuery(this).toggleClass("active-time");	
 });
 jQuery("#tb9").click(function(){
-	the_minutes=89;
+	the_minutes=180;
 	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
 	jQuery(this).siblings().removeClass("active-time");
 	jQuery(this).toggleClass("active-time");	
 });
 jQuery("#tb10").click(function(){
-	the_minutes=144;
+	the_minutes=360;
 	jQuery(this).siblings().removeClass("active-time");	
 	jQuery(this).toggleClass("active-time");	
 	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
 });
 jQuery("#tb11").click(function(){
-	the_minutes=233;
+	the_minutes=540;
 	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
 	jQuery(this).siblings().removeClass("active-time");	
 	jQuery(this).toggleClass("active-time");	
 });
 jQuery("#tb12").click(function(){
-	the_minutes=377;
+	the_minutes=720;
 	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
 	jQuery(this).siblings().removeClass("active-time");	
 	jQuery(this).toggleClass("active-time");	
 });
 jQuery("#tb13").click(function(){
-	the_minutes=610;
+	the_minutes=1440;
 	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
 	jQuery(this).siblings().removeClass("active-time");	
 	jQuery(this).toggleClass("active-time");	
 });
 jQuery("#tb14").click(function(){
-	the_minutes=987;
+	the_minutes=4320;
 	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
 	jQuery(this).siblings().removeClass("active-time");	
 	jQuery(this).toggleClass("active-time");	
 });
 jQuery("#tb15").click(function(){
-	the_minutes=1597;
+	the_minutes=10080;
 	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
 	jQuery(this).siblings().removeClass("active-time");	
 	jQuery(this).toggleClass("active-time");	
 });
 jQuery("#tb16").click(function(){
-	the_minutes=2584;
+	the_minutes=43200;
 	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
 	jQuery(this).siblings().removeClass("active-time");	
 	jQuery(this).toggleClass("active-time");	
 });
 jQuery("#tb17").click(function(){
-	the_minutes=4181;
+	the_minutes=129600;
 	updateData(the_minutes, stateArray[0], stateArray[1], stateArray[2], stateArray[3], stateArray[4]);
 	jQuery(this).siblings().removeClass("active-time");	
 	jQuery(this).toggleClass("active-time");	
@@ -221,6 +221,7 @@ jQuery(function() {
 			stateArray[3], 
 			stateArray[4]==true ? stateArray[4]=false : stateArray[4]=true);
 	});	
+	jQuery("#tb17").trigger("click");
 });
 
 //updateData(numMinutes, lastTradePrice, bestBuyYesCost, bestSellYesCost, bestBuyNoCost, bestSellNoCost)
